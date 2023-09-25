@@ -38,6 +38,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import upc.edu.pawpointapp.ui.login.Login
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -113,7 +114,7 @@ fun Signup() {
 
                 ),
                 modifier = Modifier
-                    .padding( horizontal = 10.dp)
+                    .padding(horizontal = 10.dp)
                     .height(50.dp))
 
         }
@@ -250,4 +251,9 @@ fun Signup() {
         }
     }
 
+}
+@Preview()
+@Composable
+fun SignUpPreview() {
+    Signup()
 }

@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 
 import upc.edu.pawpointapp.ui.loginpage.LoginPage
+import upc.edu.pawpointapp.ui.petprofile.PetProfile
 
 import upc.edu.pawpointapp.ui.theme.PawPointAppTheme
 
@@ -14,9 +15,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             PawPointAppTheme {
                 // A surface container using the 'background' color from the theme
-
-                    LoginPage()
-
+                    PetProfile()
             }
         }
     }
