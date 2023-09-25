@@ -32,10 +32,6 @@ import upc.edu.pawpointapp.ui.signup.Signup
 
 @Composable
 fun LoginPage() {
-
-
-
-
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -48,7 +44,6 @@ fun LoginPage() {
                 .width(213.dp)
                 .height(284.dp)
         )
-
         Text(
             text = "Hey Welcome to Pet World !",
             style = TextStyle(
@@ -59,7 +54,6 @@ fun LoginPage() {
                 textAlign = TextAlign.Center,
             )
         )
-
         Text(
             text = "while you sit and stay - we’ll go out and play",
             style = TextStyle(
@@ -70,7 +64,6 @@ fun LoginPage() {
             )
 
         )
-
         Column( verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally,modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)) {
@@ -84,8 +77,6 @@ fun LoginPage() {
 
             ) {
                 Text(text = "Sign In", color = Color.White)
-
-
             }
             TextButton(
                 onClick = { }, modifier = Modifier
@@ -98,5 +89,4 @@ fun LoginPage() {
             }
         }
     }
-
 }
