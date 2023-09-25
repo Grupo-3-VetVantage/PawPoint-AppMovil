@@ -2,6 +2,7 @@ package upc.edu.pawpointapp.ui.petprofile
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -94,16 +95,33 @@ fun PetProfile() {
                 .fillMaxWidth()
                 .height(550.dp)
         ) {
-            Row {
-                Column{
-                    Text(text = "Specie", fontSize = 20.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(16.dp))
-                    Text(text = "Caninus Domesticus", fontSize = 16.sp, modifier = Modifier.padding(16.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            ) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier
+                        .weight(1f)
+                ) {
+                    Text(text = "Specie", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                    Text(text = "Caninus Domesticus", fontSize = 16.sp)
+                    Text(text = "Breed", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                    Text(text = "Rottweiler", fontSize = 16.sp)
                 }
-                Column{
-                    Text(text = "Breed", fontSize = 20.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(16.dp))
-                    Text(text = "Rottweiler", fontSize = 16.sp, modifier = Modifier.padding(16.dp))
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier
+                        .weight(1f)
+                ) {
+                    Text(text = "Sex", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                    Text(text = "Male", fontSize = 16.sp)
+                    Text(text = "Age", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                    Text(text = "1 year", fontSize = 16.sp)
                 }
             }
+
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -146,8 +164,25 @@ fun PetProfile() {
         }
     }
 }
+@Composable
+fun KeyValueItem(key: String, value: String) {
+    Column(
+        modifier = Modifier.padding(16.dp)
+    ) {
+        Text(
+            text = key,
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
+        )
+        Text(
+            text = value,
+            fontSize = 16.sp,
+        )
+    }
+}
 @Preview
 @Composable
 fun PetProfilePreview() {
     PetProfile()
 }
+
