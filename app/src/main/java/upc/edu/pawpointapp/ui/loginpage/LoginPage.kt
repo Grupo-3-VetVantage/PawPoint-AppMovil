@@ -21,6 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -31,7 +32,7 @@ import upc.edu.pawpointapp.ui.signup.Signup
 
 
 @Composable
-fun LoginPage() {
+fun LoginPage(navController: NavController) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -68,7 +69,7 @@ fun LoginPage() {
             .fillMaxSize()
             .padding(16.dp)) {
             TextButton(
-                onClick = { }, modifier = Modifier
+                onClick = {navController.navigate("Login") }, modifier = Modifier
                     .width(320.dp)
                     .height(56.dp)
                     .padding(top = 16.dp, end = 8.dp)
@@ -79,7 +80,7 @@ fun LoginPage() {
                 Text(text = "Sign In", color = Color.White)
             }
             TextButton(
-                onClick = { }, modifier = Modifier
+                onClick = { navController.navigate("Signup")}, modifier = Modifier
                     .padding(top = 16.dp, end = 8.dp)
                     .width(320.dp)
                     .height(56.dp)

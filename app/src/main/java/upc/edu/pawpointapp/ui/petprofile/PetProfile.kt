@@ -32,11 +32,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
-fun PetProfile() {
+fun PetProfile(navController: NavController) {
     Column (
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -180,9 +181,3 @@ fun KeyValueItem(key: String, value: String) {
         )
     }
 }
-@Preview
-@Composable
-fun PetProfilePreview() {
-    PetProfile()
-}
-

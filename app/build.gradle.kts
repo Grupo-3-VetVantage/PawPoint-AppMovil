@@ -68,14 +68,16 @@ val compose_v = "1.0.4"
     implementation ("androidx.compose.foundation:foundation:$compose_v")
 
 
-    val compose_version = "1.0.4"
-    implementation("androidx.compose.animation:animation-core:$compose_version")
-    implementation("androidx.compose.animation:animation:$compose_version")
+    val composeVersion = "1.0.4"
+    implementation("androidx.compose.animation:animation-core:$composeVersion")
+    implementation("androidx.compose.animation:animation:$composeVersion")
 
     val retrofitVersion = "2.9.0"
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
     implementation("com.github.skydoves:landscapist-glide:2.1.9")
+
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
