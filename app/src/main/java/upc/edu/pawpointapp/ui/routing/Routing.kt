@@ -5,6 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import upc.edu.pawpointapp.ui.home.Home
+import upc.edu.pawpointapp.ui.homepet.HomePet
 import upc.edu.pawpointapp.ui.login.Login
 import upc.edu.pawpointapp.ui.loginpage.LoginPage
 import upc.edu.pawpointapp.ui.petprofile.PetProfile
@@ -39,6 +40,10 @@ fun Routing(){
 
         composable("PetRegister"){
             PetRegister(navController)
+        }
+
+        composable("HomePet"){
+            HomePet(navController)
         }
 
     }

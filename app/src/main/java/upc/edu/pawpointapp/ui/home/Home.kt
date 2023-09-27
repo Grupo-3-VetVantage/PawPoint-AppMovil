@@ -94,7 +94,7 @@ fun Home(navController: NavController) {
 
             PetInformation(
                 buttonText = "Information",
-                onClick = { navController.navigate("PetProfile") }
+                onClick = { navController.navigate("HomePet") }
             )
         }
         Text(
