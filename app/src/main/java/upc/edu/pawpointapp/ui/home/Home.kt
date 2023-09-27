@@ -30,12 +30,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.glide.GlideImage
 import java.util.*
 
 @Composable
-fun Home() {
+fun Home(navController: NavController) {
     var showCalendarDialog by remember { mutableStateOf(false) }
 
     Column(
@@ -93,7 +94,7 @@ fun Home() {
 
             PetInformation(
                 buttonText = "Information",
-                onClick = { /*TODO*/ }
+                onClick = { navController.navigate("HomePet") }
             )
         }
         Text(
@@ -330,8 +331,3 @@ fun CalendarDialog(onDismiss: () -> Unit) {
     // Recuerda llamar a onDismiss cuando se cierre el diálogo
 }
 
-@Preview
-@Composable
-fun HomePreview() {
-    Home()
-}

@@ -38,11 +38,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Login() {
+fun Login(navController: NavController) {
 
     val username = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
@@ -56,7 +57,7 @@ fun Login() {
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            IconButton(onClick = { }) {
+            IconButton(onClick = { navController.navigate("LoginPage") }) {
                 Icon(
                     Icons.Default.ArrowBack, contentDescription = null,
                 )
@@ -162,7 +163,7 @@ fun Login() {
             )
 
             TextButton(
-                onClick = { }, modifier = Modifier
+                onClick = {navController.navigate("Home")}, modifier = Modifier
                     .width(320.dp)
                     .height(56.dp)
                     .padding(top = 16.dp, end = 8.dp)
@@ -179,8 +180,3 @@ fun Login() {
 
 }
 
-@Preview()
-@Composable
-fun LoginPreview() {
-    Login()
-}
