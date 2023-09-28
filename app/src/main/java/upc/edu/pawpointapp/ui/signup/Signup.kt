@@ -38,11 +38,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import upc.edu.pawpointapp.ui.login.Login
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Signup() {
+fun Signup(navController: NavController) {
 
     val username = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
@@ -55,7 +56,7 @@ fun Signup() {
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            IconButton(onClick = { }) {
+            IconButton(onClick = {navController.navigate("LoginPage") }) {
                 Icon(
                     Icons.Default.ArrowBack, contentDescription = null,
                 )
@@ -236,7 +237,7 @@ fun Signup() {
             )
 
             TextButton(
-                onClick = { }, modifier = Modifier
+                onClick = { navController.navigate("Home")}, modifier = Modifier
                     .width(320.dp)
                     .height(56.dp)
                     .padding(top = 16.dp, end = 8.dp)
@@ -244,16 +245,11 @@ fun Signup() {
 
 
             ) {
-                Text(text = "Sign In", color = Color.White)
+                Text(text = "Create Account", color = Color.White)
 
 
             }
         }
     }
 
-}
-@Preview()
-@Composable
-fun SignUpPreview() {
-    Signup()
 }
