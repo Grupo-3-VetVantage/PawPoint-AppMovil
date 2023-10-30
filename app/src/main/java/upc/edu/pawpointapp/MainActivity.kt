@@ -9,13 +9,14 @@ import upc.edu.pawpointapp.ui.loginpage.LoginPage
 import upc.edu.pawpointapp.ui.petprofile.PetProfile
 import upc.edu.pawpointapp.ui.petregister.PetRegister
 import upc.edu.pawpointapp.ui.routing.Routing
+import upc.edu.pawpointapp.ui.signup.SignUpViewModel
 
 import upc.edu.pawpointapp.ui.theme.PawPointAppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
+        setContent() {
             PawPointAppTheme {
                 // A surface container using the 'background' color from the theme
                     Routing()

@@ -10,6 +10,7 @@ import upc.edu.pawpointapp.ui.login.Login
 import upc.edu.pawpointapp.ui.loginpage.LoginPage
 import upc.edu.pawpointapp.ui.petprofile.PetProfile
 import upc.edu.pawpointapp.ui.petregister.PetRegister
+import upc.edu.pawpointapp.ui.signup.SignUpViewModel
 import upc.edu.pawpointapp.ui.signup.Signup
 
 @Composable
