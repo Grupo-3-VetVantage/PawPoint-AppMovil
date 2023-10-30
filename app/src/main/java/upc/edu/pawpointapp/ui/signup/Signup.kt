@@ -1,5 +1,6 @@
 package upc.edu.pawpointapp.ui.signup
 
+import upc.edu.pawpointapp.data.utils.Result
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -38,17 +39,21 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
-import upc.edu.pawpointapp.ui.login.Login
+import upc.edu.pawpointapp.data.model.UserRequest
+import upc.edu.pawpointapp.repository.UserRepository
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Signup(navController: NavController) {
+fun Signup(navController: NavController, userRepository: UserRepository) {
 
     val username = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
+    val userEmail = remember { mutableStateOf("") }
+    val confirmPassword = remember { mutableStateOf("") }
     var showPassword by remember { mutableStateOf(value = false) }
-
+    var snackbarText by remember { mutableStateOf("") }
 
     Column() {
         Row(
@@ -143,9 +148,9 @@ fun Signup(navController: NavController) {
             )
 
             OutlinedTextField(
-                value = username.value,
+                value = userEmail.value,
                 onValueChange = {
-                    username.value = it
+                    userEmail.value = it
                 },
 
                 label = { Text("Email") },
@@ -237,7 +242,25 @@ fun Signup(navController: NavController) {
             )
 
             TextButton(
-                onClick = { navController.navigate("Home")}, modifier = Modifier
+                onClick = {
+                    if (username.value.isNotEmpty() && userEmail.value.isNotEmpty() && password.value.isNotEmpty() && password.value == confirmPassword.value) {
+                        val userRequest = UserRequest(username.value, password.value)
+                        println("pro")
+                        userRepository.register(userRequest) {result ->
+                            when (result) {
+                                is Result.Success -> {
+                                    snackbarText = "Cuenta creada exitosamente"
+                                }
+                                is Result.Error -> {
+                                    // Manejar el error si es necesario
+                                    snackbarText = "Error al registrar la cuenta"
+                                }
+                            }
+                        }
+                    } else {
+                        snackbarText = "Por favor, complete todos los campos."
+                    }
+                }, modifier = Modifier
                     .width(320.dp)
                     .height(56.dp)
                     .padding(top = 16.dp, end = 8.dp)
