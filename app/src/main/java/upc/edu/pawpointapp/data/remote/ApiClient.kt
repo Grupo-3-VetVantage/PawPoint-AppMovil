@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
 
-    private const val BASE_URL = "https://vetvantageapp.azurewebsites.net/api/"
+    private const val BASE_URL = "https://vetvantageapp.azurewebsites.net/"
 
     private var userService: UserService? = null
 
