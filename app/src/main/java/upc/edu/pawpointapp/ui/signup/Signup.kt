@@ -257,12 +257,12 @@ fun Signup(navController: NavController, userRepository: UserRepository) {
                 onClick = {
                     if (username.value.isNotEmpty() && userEmail.value.isNotEmpty() && password.value.isNotEmpty() && firstName.value.isNotEmpty() ) {
                         val userRequest = UserRequest(username.value, password.value,firstName.value, userEmail.value)
-                        println("pro")
-                        userRepository.register(userRequest) {}
+                        userRepository.register(userRequest) {
+                        }
+                        navController.navigate("LoginPage")
                     } else {
                         //snackbarText = "Por favor, complete todos los campos."
                     }
-                    navController.navigate("LoginPage")
                 }, modifier = Modifier
                     .width(320.dp)
                     .height(56.dp)

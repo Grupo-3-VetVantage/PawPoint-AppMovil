@@ -1,5 +1,6 @@
 package upc.edu.pawpointapp.ui.login
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -35,17 +36,18 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import upc.edu.pawpointapp.data.model.UserLogin
+import upc.edu.pawpointapp.repository.UserRepository
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Login(navController: NavController) {
+fun Login(navController: NavController, userRepository: UserRepository) {
 
-    val username = remember { mutableStateOf("") }
+    val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
     var showPassword by remember { mutableStateOf(value = false) }
 
@@ -111,13 +113,13 @@ fun Login(navController: NavController) {
         ) {
 
             OutlinedTextField(
-                value = username.value,
+                value = email.value,
                 onValueChange = {
-                    username.value = it
+                    email.value = it
                 },
 
-                label = { Text("User Name") },
-                placeholder = { Text("Jhon Don") },
+                label = { Text("Email") },
+                placeholder = { Text("jhon@example.com") },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 40.dp)
@@ -163,7 +165,18 @@ fun Login(navController: NavController) {
             )
 
             TextButton(
-                onClick = {navController.navigate("Home")}, modifier = Modifier
+                onClick = {
+                    if (email.value.isNotEmpty() && password.value.isNotEmpty() ) {
+                        val userLogin = UserLogin(email.value, password.value)
+                        Log.d("Login", "intento")
+                        userRepository.login(userLogin) {
+                        }
+                        navController.navigate("Home")
+                    } else {
+                        //snackbarText = "Por favor, complete todos los campos."
+                    }
+                    navController.navigate("Home")
+                }, modifier = Modifier
                     .width(320.dp)
                     .height(56.dp)
                     .padding(top = 16.dp, end = 8.dp)

@@ -1,17 +1,16 @@
 package upc.edu.pawpointapp.data.model
 
-data class UserResponse(
+data class UserLoginResponse (
     val id: Int,
     val userName: String,
-    val email: String,
+    val password: String,
+    val roles: String,
     val firstName: String,
     val lastName: String,
-    val roles: String,
-    val password: String,
+    val email: String,
     val phone: String,
     val address: String,
+    val isVet: Boolean,
     val imgUrl: String,
-    val pets: List<Pet>?,
-    //val meetings: List<Meeting>?,
-    //val reviews: List<Review>?
+    val isActive: Boolean,
 )

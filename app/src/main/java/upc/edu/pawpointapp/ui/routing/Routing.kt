@@ -28,7 +28,7 @@ fun Routing(){
         }
 
         composable("Login"){
-            Login(navController)
+            Login(navController, userRepository = UserRepository())
         }
 
         composable("Home"){
