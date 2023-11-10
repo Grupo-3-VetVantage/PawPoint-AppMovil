@@ -28,7 +28,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -41,17 +40,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import upc.edu.pawpointapp.data.model.User.UserRegister
+import upc.edu.pawpointapp.repository.UserRepository
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Signup(navController: NavController) {
-    val viewModel: SignUpViewModel = SignUpViewModel()
-
-    val FirstName : String by viewModel.firstName.observeAsState("")
-    val Username: String by viewModel.username.observeAsState("")
-    val Password: String by viewModel.password.observeAsState("")
-    val Email: String by viewModel.email.observeAsState("")
+fun Signup(navController: NavController, userRepository: UserRepository) {
+    val username = remember { mutableStateOf("") }
+    val password = remember { mutableStateOf("") }
+    val userEmail = remember { mutableStateOf("") }
+    val firstName = remember { mutableStateOf("") }
     var showPassword by remember { mutableStateOf(value = false) }
 
 
@@ -83,10 +82,10 @@ fun Signup(navController: NavController) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 50.dp, horizontal = 10.dp)
-                    ,
+                ,
                 horizontalArrangement = Arrangement.Start,
 
-            ) {
+                ) {
                 Text(
                     text = "Create account",
                     style = TextStyle(
@@ -118,7 +117,7 @@ fun Signup(navController: NavController) {
                     textAlign = TextAlign.Center,
 
 
-                ),
+                    ),
                 modifier = Modifier
                     .padding(horizontal = 10.dp)
                     .height(50.dp))
@@ -134,40 +133,35 @@ fun Signup(navController: NavController) {
         ) {
 
             OutlinedTextField(
-                value = FirstName,
-                onValueChange = { newValue ->
-                    viewModel.updateFirstName(newValue)
-
+                value = username.value,
+                onValueChange = {
+                    username.value = it
                 },
 
-                label = { Text("Name") },
+                label = { Text("Username") },
                 placeholder = { Text("Jhon Don") },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 30.dp)
 
             )
-
             OutlinedTextField(
-                value = Username,
-                onValueChange = { newValue ->
-                    viewModel.updateUsername(newValue)
-
+                value = firstName.value,
+                onValueChange = {
+                    firstName.value = it
                 },
 
-                label = { Text("User Name") },
-                placeholder = { Text("") },
+                label = { Text("FirstName") },
+                placeholder = { Text("Jhon") },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 30.dp)
 
             )
-
             OutlinedTextField(
-                value = Email,
-                onValueChange = { newValue ->
-                    viewModel.updateEmail(newValue)
-
+                value = userEmail.value,
+                onValueChange = {
+                    userEmail.value = it
                 },
 
                 label = { Text("Email") },
@@ -178,10 +172,9 @@ fun Signup(navController: NavController) {
 
             )
             OutlinedTextField(
-                value = Password,
-                onValueChange = { newValue ->
-                    viewModel.updatePassword(newValue)
-
+                value = password.value,
+                onValueChange = {
+                    password.value = it
                 },
                 visualTransformation =if (showPassword) {
 
@@ -218,13 +211,58 @@ fun Signup(navController: NavController) {
                     }
                 }
             )
+            OutlinedTextField(
+                value = password.value,
+                onValueChange = {
+                    password.value = it
+                },
+                visualTransformation =if (showPassword) {
 
+                    VisualTransformation.None
+
+                } else {
+
+                    PasswordVisualTransformation()
+
+                },
+
+                label = { Text("Confirm Password") },
+                placeholder = { Text("confirm password") },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 30.dp),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                trailingIcon = {
+                    if (showPassword) {
+                        IconButton(onClick = { showPassword = false }) {
+                            Icon(
+                                imageVector = Icons.Filled.Visibility,
+                                contentDescription = "hide_password"
+                            )
+                        }
+                    } else {
+                        IconButton(
+                            onClick = { showPassword = true }) {
+                            Icon(
+                                imageVector = Icons.Filled.VisibilityOff,
+                                contentDescription = "hide_password"
+                            )
+                        }
+                    }
+                }
+            )
 
             TextButton(
                 onClick = {
-                    viewModel.register()
-
-                    }, modifier = Modifier
+                    if (username.value.isNotEmpty() && userEmail.value.isNotEmpty() && password.value.isNotEmpty() && firstName.value.isNotEmpty() ) {
+                        val userRegister = UserRegister(username.value, password.value,firstName.value, userEmail.value)
+                        userRepository.register(userRegister) {
+                            navController.navigate("LoginPage")
+                        }
+                    } else {
+                        //snackbarText = "Por favor, complete todos los campos."
+                    }
+                }, modifier = Modifier
                     .width(320.dp)
                     .height(56.dp)
                     .padding(top = 16.dp, end = 8.dp)

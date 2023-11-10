@@ -1,14 +1,14 @@
 package upc.edu.pawpointapp.data.model.User
 
 data class UserResponse(
-    val Id: Int,
-    val UserName: String,
-    val Email: String,
-    val FirstName: String,
-    val LastName: String,
-    val Roles: String,
-    val Password: String,
-    val Phone: String,
-    val Address: String,
-    val ImgUrl: String
+    val id: Int,
+    val userName: String,
+    val email: String,
+    val firstName: String,
+    val lastName: String,
+    val roles: String,
+    val password: String,
+    val phone: String,
+    val address: String,
+    val imgUrl: String,
 )
