@@ -24,7 +24,7 @@ class UserRepository(val userService: UserService = ApiClient.getUserService()) 
             }
 
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
-                val message = t.message ?: "Error desconocido"
+                val message = t.message!!
                 callback(Result.Error(message))
             }
 
@@ -36,14 +36,14 @@ class UserRepository(val userService: UserService = ApiClient.getUserService()) 
 
         login.enqueue(object : Callback<UserResponse>{
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
-                if (response.isSuccessful) {
+                if(response.isSuccessful){
                     val userResponse = response.body()!!
                     callback(Result.Success(userResponse))
                 }
             }
 
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
-                val message = t.message ?: "Error desconocido"
+                val message = t.message!!
                 callback(Result.Error(message))
             }
         })
