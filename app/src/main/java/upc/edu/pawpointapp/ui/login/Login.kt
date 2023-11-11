@@ -1,5 +1,6 @@
 package upc.edu.pawpointapp.ui.login
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -39,17 +40,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import upc.edu.pawpointapp.data.model.User.UserLogin
-import upc.edu.pawpointapp.repository.UserRepository
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Login(navController: NavController, userRepository: UserRepository) {
+fun Login(navController: NavController, viewModel: LoginViewModel) {
 
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
     var showPassword by remember { mutableStateOf(value = false) }
-
-
     Column() {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -165,11 +163,18 @@ fun Login(navController: NavController, userRepository: UserRepository) {
                 onClick = {
                     if (email.value.isNotEmpty() && password.value.isNotEmpty() ) {
                         val userLogin = UserLogin(email.value, password.value)
-                        userRepository.login(userLogin) {
-                            navController.navigate("Home")
+                        viewModel.login(userLogin){logginSucces->
+                            if(logginSucces){
+                                Log.d("Loginclick", "email actual: ${email.value}")
+                                navController.navigate("Home")
+                            }else{
+                                Log.d("Loginclick", "no es loggin succes: ${email.value}")
+                            }
                         }
+
                     } else {
                         //snackbarText = "Por favor, complete todos los campos."
+                        Log.d("Loginclick", "campos incompletos")
                     }
                 }, modifier = Modifier
                     .width(320.dp)
