@@ -1,4 +1,4 @@
-package upc.edu.pawpointapp.data.model.User
+package upc.edu.pawpointapp.data.model.user
 
 data class UserResponse(
     val id: Int,

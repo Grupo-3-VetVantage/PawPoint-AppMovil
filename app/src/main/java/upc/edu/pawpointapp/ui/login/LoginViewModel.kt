@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import upc.edu.pawpointapp.data.model.User.UserLogin
+import upc.edu.pawpointapp.data.model.user.UserLogin
 import upc.edu.pawpointapp.repository.UserRepository
 import upc.edu.pawpointapp.utils.Result
 
@@ -17,7 +17,7 @@ class LoginViewModel(val userRepository: UserRepository = UserRepository()): Vie
         _logged.value = userId
     }
     fun getLogged():Int{
-        return _logged.value?: throw IllegalAccessException("User is not logged in$logged")
+        return _logged.value?: throw IllegalAccessException("user is not logged in$logged")
 
     }
     fun isLogged():Boolean{
@@ -28,7 +28,7 @@ class LoginViewModel(val userRepository: UserRepository = UserRepository()): Vie
         userRepository.login(userLogin){ result ->
             when(result){
                 is Result.Success->{
-                    val userId = result.data?.id ?: throw IllegalArgumentException("User ID is null")
+                    val userId = result.data?.id ?: throw IllegalArgumentException("user ID is null")
                     setLogged(userId)
                     Log.e("userId", "is correct ${getLogged()}")
                     isLogged()

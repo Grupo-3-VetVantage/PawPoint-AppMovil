@@ -3,8 +3,8 @@ package upc.edu.pawpointapp.ui.signup
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import upc.edu.pawpointapp.data.model.User.UserRegister
-import upc.edu.pawpointapp.data.model.User.UserResponse
+import upc.edu.pawpointapp.data.model.user.UserRegister
+import upc.edu.pawpointapp.data.model.user.UserResponse
 import upc.edu.pawpointapp.repository.UserRepository
 import upc.edu.pawpointapp.utils.Result
 
