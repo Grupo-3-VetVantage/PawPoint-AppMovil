@@ -14,4 +14,5 @@ interface UserService {
 
     @POST("api/User/SignUp")
     fun register(@Body userRegister: UserRegister): Call<UserResponse>
+
 }

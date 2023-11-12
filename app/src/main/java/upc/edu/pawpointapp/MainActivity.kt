@@ -9,7 +9,7 @@ import upc.edu.pawpointapp.ui.loginpage.LoginPage
 import upc.edu.pawpointapp.ui.petprofile.PetProfile
 import upc.edu.pawpointapp.ui.petregister.PetRegister
 import upc.edu.pawpointapp.ui.routing.Routing
-import upc.edu.pawpointapp.ui.signup.SignUpViewModel
+
 
 import upc.edu.pawpointapp.ui.theme.PawPointAppTheme
 
@@ -24,3 +24,5 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
+
