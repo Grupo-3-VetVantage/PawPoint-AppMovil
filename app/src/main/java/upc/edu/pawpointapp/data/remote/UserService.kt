@@ -9,9 +9,10 @@ import upc.edu.pawpointapp.data.model.User.UserResponse
 
 interface UserService {
 
-    @POST("User/Login")
-    fun login(@Body userLogin: UserLogin): Call<UserResponse>
+    @POST("api/User/Login")
+    fun login (@Body userLogin: UserLogin): Call<UserResponse>
 
     @POST("api/User/SignUp")
     fun register(@Body userRegister: UserRegister): Call<UserResponse>
+
 }
