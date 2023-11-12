@@ -4,9 +4,9 @@ import android.util.Log
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import upc.edu.pawpointapp.data.model.User.UserLogin
-import upc.edu.pawpointapp.data.model.User.UserRegister
-import upc.edu.pawpointapp.data.model.User.UserResponse
+import upc.edu.pawpointapp.data.model.user.UserLogin
+import upc.edu.pawpointapp.data.model.user.UserRegister
+import upc.edu.pawpointapp.data.model.user.UserResponse
 import upc.edu.pawpointapp.data.remote.ApiClient
 import upc.edu.pawpointapp.data.remote.UserService
 import upc.edu.pawpointapp.utils.Result
