@@ -48,7 +48,7 @@ fun Routing(){
         }
 
         composable("HomePet"){
-            HomePet(navController, userRepository = UserRepository())
+            HomePet(navController)
         }
 
     }
