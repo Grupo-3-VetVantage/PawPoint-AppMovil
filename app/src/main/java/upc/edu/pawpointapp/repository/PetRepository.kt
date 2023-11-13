@@ -4,7 +4,7 @@ import android.util.Log
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import upc.edu.pawpointapp.data.model.Pet.PetRegister
+import upc.edu.pawpointapp.data.model.pet.PetRegister
 import upc.edu.pawpointapp.data.model.pet.Pet
 import upc.edu.pawpointapp.data.remote.ApiClient
 import upc.edu.pawpointapp.data.remote.PetService

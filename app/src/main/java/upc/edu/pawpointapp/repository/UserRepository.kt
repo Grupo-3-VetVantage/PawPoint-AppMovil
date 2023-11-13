@@ -4,6 +4,8 @@ import android.util.Log
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import upc.edu.pawpointapp.data.model.pet.Pet
+import upc.edu.pawpointapp.data.model.pet.PetResponse
 import upc.edu.pawpointapp.data.model.user.UserLogin
 import upc.edu.pawpointapp.data.model.user.UserRegister
 import upc.edu.pawpointapp.data.model.user.UserResponse
@@ -60,5 +62,24 @@ class UserRepository(val userService: UserService = ApiClient.getUserService()) 
         })
     }
 
+    //pets
+    fun searchPetsByUserId(id: Int, callback: (Result<List<Pet>>)->Unit){
+        val searchById = userService.getPetsByUserId(id)
+        searchById.enqueue(object: Callback<List<Pet>> {
+            override fun onResponse(call: Call<List<Pet>>, response: Response<List<Pet>>) {
+                if (response.isSuccessful){
+                    val pets = response.body()!!
+                    val petResponse = PetResponse(pets)
+                    Log.e("Pets", "Pet message: ${response.body()}")
+                    callback(Result.Success(pets))
 
+                }
+            }
+            override fun onFailure(call: Call<List<Pet>>, t: Throwable) {
+                val message = t.message!!
+                Log.e("Pets", "Pet message: $message")
+                callback(Result.Error(message))
+            }
+        })
+    }
 }

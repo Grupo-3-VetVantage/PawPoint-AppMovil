@@ -1,4 +1,4 @@
-package upc.edu.pawpointapp.data.model.Pet
+package upc.edu.pawpointapp.data.model.pet
 
 data class PetRegister (
     val name: String,

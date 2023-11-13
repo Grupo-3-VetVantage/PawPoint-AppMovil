@@ -8,6 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import upc.edu.pawpointapp.repository.UserRepository
 import upc.edu.pawpointapp.ui.home.Home
 import upc.edu.pawpointapp.ui.homepet.HomePet
+import upc.edu.pawpointapp.ui.homepet.HomePetViewModel
 import upc.edu.pawpointapp.ui.login.Login
 import upc.edu.pawpointapp.ui.login.LoginViewModel
 import upc.edu.pawpointapp.ui.loginpage.LoginPage
@@ -48,7 +49,8 @@ fun Routing(){
         }
 
         composable("HomePet"){
-            HomePet(navController)
+            val homePetViewModel: HomePetViewModel = viewModel()
+            HomePet(navController, homePetViewModel, loginViewModel)
         }
 
     }

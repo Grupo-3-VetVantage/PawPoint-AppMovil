@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import upc.edu.pawpointapp.data.model.Pet.PetRegister
+import upc.edu.pawpointapp.data.model.pet.PetRegister
 import upc.edu.pawpointapp.repository.PetRepository
 import upc.edu.pawpointapp.utils.Result
 
