@@ -1,5 +1,6 @@
 package upc.edu.pawpointapp.ui.homepet
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -42,7 +43,6 @@ fun HomePet(navController: NavController, homePetViewModel: HomePetViewModel, lo
     val userId by loginViewModel.logged.collectAsState()
     val pet by homePetViewModel.petList.collectAsState()
 
-
     Column {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -66,8 +66,9 @@ fun HomePet(navController: NavController, homePetViewModel: HomePetViewModel, lo
             )
         }
         LazyColumn(content = {
-            homePetViewModel.getPetLIst(userId){}
+            homePetViewModel.getPetList(userId){}
             itemsIndexed(pet) { index, pet->
+                Log.d("PetProfile", "Selected petId: ${pet.id}")
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -107,7 +108,10 @@ fun HomePet(navController: NavController, homePetViewModel: HomePetViewModel, lo
 
 
                         }
-                        IconButton(onClick = { navController.navigate("PetProfile") }                        ) {
+                        IconButton(onClick = {
+                            homePetViewModel.setPetId(pet.id)
+                            navController.navigate("PetProfile/${pet.id}") }
+                        ) {
                             Icon(
                                 Icons.Default.ArrowForward, contentDescription = null,
                             )

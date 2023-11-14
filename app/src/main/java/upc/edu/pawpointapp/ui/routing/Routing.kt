@@ -21,6 +21,7 @@ import upc.edu.pawpointapp.ui.signup.Signup
 fun Routing(){
     val navController = rememberNavController()
     val loginViewModel: LoginViewModel = viewModel()
+    val homePetViewModel: HomePetViewModel = viewModel()
     NavHost(navController = navController, startDestination = "LoginPage" ){
 
         composable("Signup"){
@@ -39,8 +40,8 @@ fun Routing(){
             Home(navController)
         }
 
-        composable("PetProfile"){
-            PetProfile(navController)
+        composable("PetProfile/{petId}"){
+            PetProfile(homePetViewModel)
         }
 
         composable("PetRegister"){
@@ -49,7 +50,6 @@ fun Routing(){
         }
 
         composable("HomePet"){
-            val homePetViewModel: HomePetViewModel = viewModel()
             HomePet(navController, homePetViewModel, loginViewModel)
         }
 

@@ -5,17 +5,27 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import upc.edu.pawpointapp.data.model.pet.Pet
+import upc.edu.pawpointapp.repository.PetRepository
 import upc.edu.pawpointapp.repository.UserRepository
 import upc.edu.pawpointapp.utils.Result
 
-class HomePetViewModel (val userRepository: UserRepository = UserRepository()): ViewModel() {
+class HomePetViewModel (val userRepository: UserRepository = UserRepository(), val petRepository: PetRepository = PetRepository()): ViewModel() {
     private val _petList = MutableStateFlow<List<Pet>>(emptyList())
     val petList: StateFlow<List<Pet>> get() = _petList
     private val _petId = MutableStateFlow<Int>(0)
     val petId: StateFlow<Int> get() = _petId
+    private val _pet = MutableStateFlow<Pet?>(null)
+    val pet: StateFlow<Pet?> get() = _pet
 
-
-    fun getPetLIst(id: Int, onPetResult: (Boolean) -> Unit){
+    fun setPetId(id: Int){
+        _petId.value = id
+    }
+    fun getPetDataById(id: Int){
+        petRepository.searchById(id){result ->
+           _pet.value = result.data
+        }
+    }
+    fun getPetList(id: Int, onPetResult: (Boolean) -> Unit){
         userRepository.searchPetsByUserId(id){result->
             when(result){
                 is Result.Success->{

@@ -137,7 +137,9 @@ fun Login(navController: NavController, viewModel: LoginViewModel) {
 
                 label = { Text("Password") },
                 placeholder = { Text("Password") },
-                modifier = Modifier.fillMaxWidth().padding(bottom = 40.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 40.dp),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                 trailingIcon = {
                     if (showPassword) {
@@ -173,7 +175,6 @@ fun Login(navController: NavController, viewModel: LoginViewModel) {
                         }
 
                     } else {
-                        //snackbarText = "Por favor, complete todos los campos."
                         Log.d("Loginclick", "campos incompletos")
                     }
                 }, modifier = Modifier

@@ -55,7 +55,7 @@ class UserRepository(val userService: UserService = ApiClient.getUserService()) 
             }
 
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
-                val message = t.message!!
+                val message = t.message ?: "Unknown error"
                 Log.e("Login", "Login failed: $message")
                 callback(Result.Error(message))
             }
@@ -69,7 +69,6 @@ class UserRepository(val userService: UserService = ApiClient.getUserService()) 
             override fun onResponse(call: Call<List<Pet>>, response: Response<List<Pet>>) {
                 if (response.isSuccessful){
                     val pets = response.body()!!
-                    val petResponse = PetResponse(pets)
                     Log.e("Pets", "Pet message: ${response.body()}")
                     callback(Result.Success(pets))
 
