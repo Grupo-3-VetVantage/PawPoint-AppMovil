@@ -18,13 +18,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CameraAlt
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material.icons.outlined.ColorLens
 import androidx.compose.material.icons.outlined.Description
 import androidx.compose.material.icons.outlined.MonitorWeight
 import androidx.compose.material.icons.outlined.Pets
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
@@ -32,24 +30,20 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.glide.GlideImage
-import upc.edu.pawpointapp.data.model.Pet.PetRegister
+import upc.edu.pawpointapp.data.model.pet.PetRegister
 import upc.edu.pawpointapp.ui.login.LoginViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -94,15 +88,7 @@ fun PetRegister(navController: NavController, petviewModel: PetRegisterViewModel
     val sex = remember { mutableStateOf("") }
     val breed = remember { mutableStateOf("") }
     val specie = remember { mutableStateOf("") }
-    var userId:Int = 0
-
-    fun userIdvalue(onUserIdReady: () -> Unit){
-        if (loginViewModel.isLogged()) {
-            userId = loginViewModel.getLogged()
-            Log.d("userIdvalue", "is logged $userId")
-        }
-        onUserIdReady()
-    }
+    val userId by loginViewModel.logged.collectAsState()
 
     Column (
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -243,11 +229,12 @@ fun PetRegister(navController: NavController, petviewModel: PetRegisterViewModel
         onClick = {
             if (name.value.isNotEmpty() && petcolor.value.isNotEmpty() && dateOfBirth.value.isNotEmpty()
                  && breed.value.isNotEmpty() && specie.value.isNotEmpty() && description.value.isNotEmpty()) {
-                userIdvalue{
+                if(loginViewModel.isLogged()){
                     val petRegister = PetRegister(name.value,age.value,petcolor.value,petweight.value,dateOfBirth.value,
                         description.value,image.value,sex.value,breed.value,specie.value, userId)
                     petviewModel.register(petRegister) {result->
                         if(result){
+                            Log.d("Loginclick", "is login success $userId")
                             navController.navigate("Home")
                         }else{
                             Log.d("Loginclick", "is not login success $userId")

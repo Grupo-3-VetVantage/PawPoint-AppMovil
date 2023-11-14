@@ -1,16 +1,17 @@
 package upc.edu.pawpointapp.ui.homepet
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
@@ -20,6 +21,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -33,9 +36,13 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.glide.GlideImage
+import upc.edu.pawpointapp.ui.login.LoginViewModel
 
 @Composable
-fun HomePet(navController: NavController) {
+fun HomePet(navController: NavController, homePetViewModel: HomePetViewModel, loginViewModel: LoginViewModel) {
+    val userId by loginViewModel.logged.collectAsState()
+    val pet by homePetViewModel.petList.collectAsState()
+
     Column {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -58,21 +65,20 @@ fun HomePet(navController: NavController) {
                 )
             )
         }
-
-
-
         LazyColumn(content = {
-            items(3) {
+            homePetViewModel.getPetList(userId){}
+            itemsIndexed(pet) { index, pet->
+                Log.d("PetProfile", "Selected petId: ${pet.id}")
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(16.dp)
                 ) {
                     Row( modifier = Modifier .padding(16.dp)) {
-                        HeroImage()
+                        PetImage(homePetViewModel, index)
                         Column {
                             Text(
-                                text = "Name: Shadow",
+                                text = "Name: ${pet.name}",
                                 style = TextStyle(
                                     fontSize = 25.sp,
                                     fontWeight = FontWeight(500),
@@ -81,7 +87,7 @@ fun HomePet(navController: NavController) {
                                 )
                             )
                             Text(
-                                text = "Gender: Male",
+                                text = "Gender: ${pet.sex}",
                                 style = TextStyle(
                                     fontSize = 16.sp,
                                     fontWeight = FontWeight(500),
@@ -90,7 +96,7 @@ fun HomePet(navController: NavController) {
                                 )
                             )
                             Text(
-                                text = "Color: Golden",
+                                text = "Color: ${pet.color}",
                                 style = TextStyle(
                                     fontSize = 16.sp,
                                     fontWeight = FontWeight(500),
@@ -102,7 +108,10 @@ fun HomePet(navController: NavController) {
 
 
                         }
-                        IconButton(onClick = { navController.navigate("PetProfile") }) {
+                        IconButton(onClick = {
+                            homePetViewModel.setPetId(pet.id)
+                            navController.navigate("PetProfile/${pet.id}") }
+                        ) {
                             Icon(
                                 Icons.Default.ArrowForward, contentDescription = null,
                             )
@@ -111,20 +120,31 @@ fun HomePet(navController: NavController) {
 
                 }
             }
-        })
+        }
+        )
 
-        IconButton(onClick = { navController.navigate("PetRegister") }) {
+        IconButton(onClick = { navController.navigate("PetRegister") },
+                modifier = Modifier
+            .padding(16.dp)
+        ) {
             Icon(
                 Icons.Default.Add ,
                 tint = Color.White,
                 contentDescription = null,
                 modifier = Modifier
                     .size(100.dp)
-                    .background(Color(0xFF4285F4), shape = androidx.compose.foundation.shape.CircleShape)
+                    .background(
+                        Color(0xFF4285F4),
+                        shape = androidx.compose.foundation.shape.CircleShape
+                    )
                     .padding(5.dp)
                     .width(48.dp)
                     .height(48.dp)
-                    .shadow(elevation = 13.dp, spotColor = Color(0x6976655A), ambientColor = Color(0x6976655A))
+                    .shadow(
+                        elevation = 13.dp,
+                        spotColor = Color(0x6976655A),
+                        ambientColor = Color(0x6976655A)
+                    )
 
             )
         }
@@ -133,9 +153,10 @@ fun HomePet(navController: NavController) {
 }
 
 @Composable
-fun HeroImage(){
+fun PetImage(homePetViewModel: HomePetViewModel, index: Int){
+    val pet by homePetViewModel.petList.collectAsState()
     GlideImage(
-        imageModel = { "https://cdn.discordapp.com/attachments/1154594922339516427/1156428543031509073/white_dog_playing.png?ex=6514ef82&is=65139e02&hm=94976aec5960073324f6612f197205701476d7357a832029be39e160078c5a9b&" },
+        imageModel = { pet[index].imgUrl},
         imageOptions = ImageOptions(contentScale = ContentScale.Fit),
         modifier = Modifier
             .size(92.dp)

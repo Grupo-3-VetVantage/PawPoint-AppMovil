@@ -9,8 +9,8 @@ import upc.edu.pawpointapp.repository.UserRepository
 import upc.edu.pawpointapp.utils.Result
 
 class LoginViewModel(val userRepository: UserRepository = UserRepository()): ViewModel() {
-    private val _logged = MutableStateFlow<Int?>(null)
-    val logged: StateFlow<Int?> get() = _logged
+    private val _logged = MutableStateFlow<Int>(0)
+    val logged: StateFlow<Int> get() = _logged
 
 
     fun setLogged(userId: Int){

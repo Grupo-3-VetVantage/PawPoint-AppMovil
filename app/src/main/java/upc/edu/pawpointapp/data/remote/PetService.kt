@@ -6,7 +6,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
-import upc.edu.pawpointapp.data.model.Pet.PetRegister
+import upc.edu.pawpointapp.data.model.pet.PetRegister
 import upc.edu.pawpointapp.data.model.pet.Pet
 import upc.edu.pawpointapp.data.model.pet.PetResponse
 
