@@ -1,5 +1,6 @@
 package upc.edu.pawpointapp.ui.home
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -24,6 +25,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -33,16 +36,78 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.glide.GlideImage
+import upc.edu.pawpointapp.R
 import java.util.*
 
 @Composable
 fun Home(navController: NavController) {
     var showCalendarDialog by remember { mutableStateOf(false) }
+    val userLocation = "Lima, Peru"
+    val userName = "John Doe"
 
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Top
     ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            // Ubicación del usuario
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.LocationOn,
+                    contentDescription = "Location icon",
+                    tint = Color.Blue
+                )
+                Text(
+                    text = userLocation,
+                    color = Color.Blue,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(start = 4.dp)
+                )
+            }
+
+            // Bienvenida y foto de perfil
+            Button(
+                onClick = { navController.navigate("UserProfile") },
+                modifier = Modifier
+                    .clip(CircleShape)
+                    .background(MaterialTheme.colorScheme.primary),
+                contentPadding = PaddingValues(8.dp)
+            ) {
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = "Welcome",
+                        color = Color.Blue
+                    )
+                    Text(
+                        text = userName,
+                        color = Color.Black,
+                        fontWeight = FontWeight.Bold
+                    )
+                    // Aquí deberías cargar la imagen de perfil redonda
+                    // usando la biblioteca correspondiente o desde un recurso
+                    // local si la imagen está en tu proyecto.
+                    // Ejemplo con GlideImage:
+                    // GlideImage(...)
+                }
+            }
+
+
+
+        }
+
+
+
         // Barra de búsqueda
         HomeSearch(textQuery = remember { mutableStateOf("") })
 
@@ -57,10 +122,10 @@ fun Home(navController: NavController) {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(16.dp)
+                .clickable { navController.navigate("VeterinarianProfile") }, // Navegar al perfil del veterinario
             shape = RoundedCornerShape(8.dp),
-
-        ) {
+        ){
             Column(
                 modifier = Modifier.padding(16.dp)
             ) {
@@ -114,6 +179,8 @@ fun Home(navController: NavController) {
         }
     }
 }
+
+
 
 
 @OptIn(ExperimentalMaterial3Api::class)
