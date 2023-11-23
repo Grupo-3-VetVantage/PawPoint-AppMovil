@@ -63,6 +63,7 @@ fun UserProfile(navController: NavController,homeViewModel: HomeViewModel) {
 
 @Composable
 fun UserProfileCard(homeViewModel: HomeViewModel){
+
     val userDetail by homeViewModel.user.collectAsState()
     Card(
         modifier = Modifier
@@ -73,7 +74,7 @@ fun UserProfileCard(homeViewModel: HomeViewModel){
             modifier = Modifier.padding(16.dp)
         ) {
             GlideImage(
-                imageModel = {userDetail?.imgUrl.orEmpty()},
+                imageModel = {"https://cdn.discordapp.com/attachments/1154594922339516427/1177239823317225563/ai-image-generation-fake-faces-people-nvidia-5c18b20b472c2__700.jpg?ex=6571c905&is=655f5405&hm=cdcc21cc99516fe04bed1253049f006047d699dffa87a327229ec15e2d638b34&"},
 
                 modifier = Modifier
                     .size(100.dp)
