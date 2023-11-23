@@ -150,8 +150,8 @@ fun Home(navController: NavController, homeViewModel: HomeViewModel, loginViewMo
                 onClick = { /*TODO*/ }
             )
             Veterinary (
-                buttonText = "Shopping",
-                onClick = { /*TODO*/ }
+                buttonText = "Veterinarian",
+                onClick = { navController.navigate("ViewVet") }
             )
 
             PetInformation(

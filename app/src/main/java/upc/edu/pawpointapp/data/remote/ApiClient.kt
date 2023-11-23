@@ -9,7 +9,7 @@ object ApiClient {
 
     private var userService: UserService? = null
     private var petService: PetService? = null
-
+    private var vetService: VetService? = null
     fun getUserService(): UserService {
         if (userService == null) {
             val retrofit = Retrofit
@@ -33,4 +33,17 @@ object ApiClient {
         }
         return petService as PetService
     }
+
+    fun getVetService(): VetService{
+        if(vetService == null){
+            val retrofit = Retrofit
+                .Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+            vetService = retrofit.create(VetService::class.java)
+        }
+        return vetService as VetService
+    }
+
 }
