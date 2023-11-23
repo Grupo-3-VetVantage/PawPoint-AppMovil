@@ -21,6 +21,8 @@ import upc.edu.pawpointapp.ui.petprofile.VeterinarianProfile
 import upc.edu.pawpointapp.ui.petregister.PetRegister
 import upc.edu.pawpointapp.ui.petregister.PetRegisterViewModel
 import upc.edu.pawpointapp.ui.signup.Signup
+import upc.edu.pawpointapp.ui.viewVet.ViewVet
+import upc.edu.pawpointapp.ui.viewVet.ViewVetModel
 
 @Composable
 fun Routing(){
@@ -68,6 +70,13 @@ fun Routing(){
 
         composable("UserProfile/{userId}") {
             UserProfile(navController, homeViewModel)
+        }
+        composable("UserProfile/{userId}") {
+            UserProfile(navController, homeViewModel)
+        }
+        composable("ViewVet") {
+            val viewModel: ViewVetModel = viewModel()
+            ViewVet(navController, viewModel)
         }
 
     }
