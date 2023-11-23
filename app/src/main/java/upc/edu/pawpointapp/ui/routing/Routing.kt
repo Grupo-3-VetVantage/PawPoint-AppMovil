@@ -10,6 +10,7 @@ import upc.edu.pawpointapp.repository.UserRepository
 import upc.edu.pawpointapp.ui.UserProfile.UserProfile
 import upc.edu.pawpointapp.ui.appointmentbooking.AppointmentBooking
 import upc.edu.pawpointapp.ui.home.Home
+import upc.edu.pawpointapp.ui.home.HomeViewModel
 import upc.edu.pawpointapp.ui.homepet.HomePet
 import upc.edu.pawpointapp.ui.homepet.HomePetViewModel
 import upc.edu.pawpointapp.ui.login.Login
@@ -26,6 +27,7 @@ fun Routing(){
     val navController = rememberNavController()
     val loginViewModel: LoginViewModel = viewModel()
     val homePetViewModel: HomePetViewModel = viewModel()
+    val homeViewModel: HomeViewModel = viewModel()
     NavHost(navController = navController, startDestination = "LoginPage" ){
 
         composable("Signup"){
@@ -41,7 +43,7 @@ fun Routing(){
         }
 
         composable("Home"){
-            Home(navController)
+            Home(navController, homeViewModel, loginViewModel)
         }
 
         composable("PetProfile/{petId}"){
@@ -64,8 +66,8 @@ fun Routing(){
             AppointmentBooking(navController)
         }
 
-        composable("UserProfile") {
-            UserProfile(navController)
+        composable("UserProfile/{userId}") {
+            UserProfile(navController, homeViewModel)
         }
 
     }

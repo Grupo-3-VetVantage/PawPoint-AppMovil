@@ -20,4 +20,7 @@ interface UserService {
 
     @GET("user/GetPets/{id}")
     fun getPetsByUserId(@Path("id") id: Int): Call<List<Pet>>
+
+    @GET("user/{id}")
+    fun getUserById(@Path("id") id: Int): Call<UserResponse>
 }

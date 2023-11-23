@@ -81,4 +81,28 @@ class UserRepository(val userService: UserService = ApiClient.getUserService()) 
             }
         })
     }
+
+    //getUserById
+    fun searchUserById(id: Int, callback: (Result<UserResponse>) -> Unit){
+        val searchUserById = userService.getUserById(id)
+        searchUserById.enqueue(object: Callback<UserResponse>{
+            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+                if(response.isSuccessful){
+                    val userResponse = response.body()!!
+                    Log.e("User", "User message: ${response.body()}")
+                    callback(Result.Success(userResponse))
+                }
+            }
+
+            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                val message = t.message!!
+                Log.e("User", "User message: $message")
+                callback(Result.Error(message))
+            }
+        })
+
+    }
+
+
+
 }
